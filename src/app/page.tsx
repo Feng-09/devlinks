@@ -24,8 +24,8 @@ export default function Home() {
   const [warn, setWarn] = useState("");
   const router = useRouter();
 
-  if (!user) {
-    return router.push("/register");
+  if (user) {
+    router.push("/register");
   }
 
   const addLink = () => {
@@ -41,10 +41,10 @@ export default function Home() {
   const saveLinksAndEmailToDatabase = async () => {
     try {
       if (saved) {
-        const userRef = db.collection("users").doc(user.uid);
+        const userRef = db.collection("users").doc(user?.uid);
         await userRef.set(
           {
-            email: user.email,
+            email: user?.email,
             links: linkArr,
           },
           { merge: true }
@@ -64,7 +64,7 @@ export default function Home() {
       const userDoc = await firebase
         .firestore()
         .collection("users")
-        .doc(user.uid)
+        .doc(user?.uid)
         .get();
       if (userDoc) {
         const userData = userDoc.data();
