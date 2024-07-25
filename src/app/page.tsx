@@ -24,7 +24,7 @@ export default function Home() {
   const [warn, setWarn] = useState("");
   const router = useRouter();
 
-  if (user) {
+  if (!user) {
     router.push("/register");
   }
 
