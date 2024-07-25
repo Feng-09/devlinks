@@ -86,7 +86,7 @@ export default function Preview() {
         </Button>
       </header>
 
-      <section className="flex flex-col gap-14 sm:bg-white rounded-3xl items-center shad sm:px-14 sm:py-12 z-10 max-sm:mt-20">
+      <section className="flex flex-col gap-14 sm:bg-white rounded-3xl items-center shad px-8 py-6 sm:px-14 sm:py-12 z-10 max-sm:mt-28">
         <div className="flex flex-col gap-6 items-center">
           <Image
             src={imageSrc}
