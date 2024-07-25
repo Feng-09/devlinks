@@ -13,14 +13,6 @@ import firebase from "firebase/compat/app";
 
 export default function Home() {
   const [user] = useAuthState(auth);
-  const router = useRouter();
-
-  console.log(user);
-
-  if (!user) {
-    return router.push("/register");
-  }
-
   const [linkArr, setLinkArr] = useState<
     {
       platform: string;
@@ -30,14 +22,11 @@ export default function Home() {
   const [newPlatform, setNewPlatform] = useState("GitHub");
   const [saved, setSaved] = useState<boolean | undefined>();
   const [warn, setWarn] = useState("");
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   const linkArrJson = localStorage.getItem('linkArr')
-  //   if (typeof linkArrJson === 'string') {
-  //       setLinkArr(JSON.parse(linkArrJson))
-  //       console.log(linkArr)
-  //   }
-  // }, [])
+  if (!user) {
+    return router.push("/register");
+  }
 
   const addLink = () => {
     setLinkArr((prevArr) => [
@@ -235,6 +224,7 @@ export default function Home() {
                   if (item) {
                     return (
                       <div
+                        key={id}
                         className={
                           "w-full h-11 rounded flex relative px-4 py-3 gap-2 items-center text-white font-instrument" +
                           (item.platform === "GitHub"
@@ -271,7 +261,10 @@ export default function Home() {
                     );
                   } else {
                     return (
-                      <div className="w-full h-11 rounded bg-[#EEEEEE]"></div>
+                      <div
+                        key={id}
+                        className="w-full h-11 rounded bg-[#EEEEEE]"
+                      ></div>
                     );
                   }
                 })}
