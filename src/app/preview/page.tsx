@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -24,6 +25,7 @@ export default function Preview() {
   const [email, setEmail] = useState("");
   const [imageSrc, setImageSrc] = useState("");
   const router = useRouter();
+  const { toast } = useToast()
 
   useEffect(() => {
     const linkArrJson = localStorage.getItem("linkArr");
@@ -67,7 +69,9 @@ export default function Preview() {
 
   const copyToClipboard = (id: number) => {
     navigator.clipboard.writeText(linkArr[id].link);
-    alert("Link copied to clipboard");
+    toast({
+      description: "Copied to clipboard!"
+    })
   };
 
   return (

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast"
 import { Github, ArrowRight, Youtube, Linkedin, Facebook } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -25,6 +26,7 @@ export default function Profile() {
     }[]
   >([]);
   const router = useRouter();
+  const { toast } = useToast()
 
   const getDataFromDatabase = async () => {
     try {
@@ -87,6 +89,9 @@ export default function Profile() {
           },
           { merge: true }
         );
+        toast({
+          description: "Profile updated!"
+        })
         router.push("/preview");
       } catch (e) {
         console.error(e);

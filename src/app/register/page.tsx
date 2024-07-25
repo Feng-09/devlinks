@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast"
+import { Loader2 } from "lucide-react"
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useState } from "react";
@@ -15,10 +17,12 @@ export default function RegisterPage() {
   const [emailWarn, setEmailWarn] = useState("");
   const [passwordWarn, setPasswordWarn] = useState("");
   const [confirmPasswordWarn, setConfirmPasswordWarn] = useState("");
+  const [isSignedUp, setIsSignedUp] = useState(false)
 
   const [createUserWithEmailAndPassword] =
     useCreateUserWithEmailAndPassword(auth);
   const router = useRouter();
+  const { toast } = useToast()
 
   const handleSignUp = async () => {
     const regex = /\w@\w.\w/;
@@ -44,12 +48,25 @@ export default function RegisterPage() {
     } else {
       try {
         const res = await createUserWithEmailAndPassword(email, password);
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-        router.push("/");
+        if ({ res }) {
+          setIsSignedUp(true)
+          toast({
+            description: "Sign up successful!"
+          })
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+          router.push("/");
+        } else {
+          toast({
+            description: "Try again"
+          })
+        }
       } catch (e) {
         console.error(e);
+        toast({
+          description: "Something went wrong"
+        })
       }
     }
   };
@@ -168,7 +185,7 @@ export default function RegisterPage() {
           className="bg-purple w-full py-[0.6875rem] px-[1.6875rem] text-white font-semibold leading-normal"
           onClick={handleSignUp}
         >
-          Create new account
+          {isSignedUp ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Create new account"}
         </Button>
 
         <p className="font-instrument text-grey leading-normal text-center">

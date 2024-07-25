@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast"
+import { Loader2 } from "lucide-react"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
@@ -12,9 +14,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [emailWarn, setEmailWarn] = useState("");
   const [passWarn, setPassWarn] = useState("");
+  const [isLogged, setIsLogged] = useState(false)
 
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
+  const { toast } = useToast()
 
   const handleSignIn = async () => {
     const regex = /\w@\w.\w/;
@@ -35,14 +39,24 @@ export default function LoginPage() {
       try {
         const res = await signInWithEmailAndPassword(email, password);
         if ({ res }) {
+          setIsLogged(true)
+          toast({
+            description: "Login successful!"
+          })
           router.push("/");
         } else {
+          toast({
+            description: "Try again"
+          })
         }
         console.log({ res });
         setEmail("");
         setPassword("");
       } catch (e) {
         console.error(e);
+        toast({
+          description: "Something went wrong"
+        })
       }
     }
   };
@@ -147,7 +161,7 @@ export default function LoginPage() {
           className="bg-purple w-full py-[0.6875rem] px-[1.6875rem] text-white font-semibold leading-normal"
           onClick={handleSignIn}
         >
-          Login
+          {isLogged ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Login"}
         </Button>
 
         <p className="font-instrument text-grey leading-normal text-center">
