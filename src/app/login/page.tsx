@@ -48,7 +48,7 @@ export default function LoginPage() {
   };
   return (
     <main className="bg-background-grey p-8 flex flex-col items-center min-h-screen h-fit gap-10 w-screen sm:justify-center">
-      <header className="bg-white flex gap-2 items-center w-full sm:justify-center">
+      <header className="flex gap-2 items-center w-full sm:justify-center">
         <Image
           src="/solar_link-circle-bold.svg"
           alt="hero"
@@ -58,7 +58,7 @@ export default function LoginPage() {
         <Image src="/devlinks.svg" alt="hero" width={135} height={26.25} />
       </header>
 
-      <section className="bg-white rounded flex flex-col gap-y-6 w-full sm:p-10 sm:w-[29.75rem] sm:h-[30.125rem]">
+      <section className="bg-white rounded flex flex-col gap-y-6 w-full p-4 sm:p-10 sm:w-[29.75rem] sm:h-[30.125rem]">
         <div className="flex flex-col gap-y-2 mb-4 sm:w-full">
           <h1 className="font-instrument text-2xl leading-9 font-bold text-dark-grey sm:text-[2rem]">
             Login
