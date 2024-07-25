@@ -72,7 +72,7 @@ export default function Preview() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 bg-background-grey sm:p-6">
-      <div className="absolute top-0 w-screen h-[22.3125rem] rounded-b-[2rem] bg-purple"></div>
+      <div className="hidden sm:block absolute top-0 w-screen h-[22.3125rem] rounded-b-[2rem] bg-purple"></div>
       <header className="fixed top-0 py-4 px-6 flex justify-between w-full mb-[3.75rem] sm:bg-white sm:rounded-xl sm:static z-10 sm:mb-32">
         <Button
           variant="outline"
@@ -86,7 +86,7 @@ export default function Preview() {
         </Button>
       </header>
 
-      <section className="flex flex-col gap-14 sm:bg-white rounded-3xl items-center shad sm:px-14 sm:py-12 z-10">
+      <section className="flex flex-col gap-14 sm:bg-white rounded-3xl items-center shad sm:px-14 sm:py-12 z-10 max-sm:mt-20">
         <div className="flex flex-col gap-6 items-center">
           <Image
             src={imageSrc}
